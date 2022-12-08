@@ -11,5 +11,18 @@ RSpec.describe DiaryEntry do
             diary_entry = DiaryEntry.new('my_title', "here are few words that need to be counted")
             expect(diary_entry.count_words).to eq 9
         end
+        it 'returns zero when no content is given' do 
+            diary_entry = DiaryEntry.new('my_title', "")
+            expect(diary_entry.count_words).to eq 0
+        end
     end
+    describe '#reading_time' do
+        context 'given words per min of integer number' do
+            it 'returns number of how long it takes to read the contents' do 
+                diary_entry = DiaryEntry.new('my_title','one ' * 200)
+                expect(diary_entry.reading_time("one ")).to eq 200
+            end
+        end
+    end
+    
 end
