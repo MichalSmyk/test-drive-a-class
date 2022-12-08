@@ -17,21 +17,10 @@ class DiaryEntry
     end
   
     def reading_time(wpm) 
-      
-      word_count = wpm.split(" ").count
-
-      time = word_count / 200.to_f
-
-      if word_count == 0
-         0
-      elsif word_count == 1
-        1
-      elsif word_count % 200 == 0
-         word_count / 200
-      else 
-         time.ceil
-      end
-
+      fail "Reading time must be above 0" unless wpm > 0
+      words = (count_words / wpm.to_f).ceil
+      #puts "words : #{words}"
+      return words
     end
   
     def reading_chunk(wpm, minutes) # `wpm` is an integer representing the number
@@ -45,3 +34,5 @@ class DiaryEntry
       # The next call after that it should restart from the beginning.
     end
   end
+ 
+
