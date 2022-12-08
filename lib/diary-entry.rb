@@ -23,13 +23,13 @@ class DiaryEntry
       time = word_count / 200.to_f
 
       if word_count == 0
-        return 0
+         0
       elsif word_count == 1
-        return 1
+        1
       elsif word_count % 200 == 0
-        return word_count / 200
+         word_count / 200
       else 
-        return time.ceil
+         time.ceil
       end
 
     end
