@@ -31,10 +31,9 @@ class GrammarStats
       # the check defined in the `check` method. The number 55 represents 55%.
     def percentage_good
       @text_checked = @text_passed + @text_failed
-      integer_as_percentage = (@text_passed / @text_checked.to_f) * 100
+      integer_as_percentage = @text_passed / @text_checked.to_f * 100
       
       return integer_as_percentage
     end
 
-end  
-
+end
