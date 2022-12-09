@@ -30,5 +30,42 @@ RSpec.describe DiaryEntry do
             end
         end
     end
+    describe '#reading_chunk' do 
+        context 'with a conttents redable within the given minutes' do 
+            it 'returns full contents' do
+                diary_entry = DiaryEntry.new('my_title', "one two three")
+                chunk = diary_entry.reading_chunk(200, 1)
+                expect(chunk).to eq "one two three"
+            end
+        end
+        context 'with a contents unredable within given minutes' do 
+            it 'returns a readable chunk' do 
+                diary_entry = DiaryEntry.new('my_title', "one two three")
+                chunk = diary_entry.reading_chunk(2, 1)
+                expect(chunk).to eq "one two"
+            end
+            it 'returns the next chunk, next time we are asked' do 
+                diary_entry = DiaryEntry.new('my_title', 'one two three' )
+                diary_entry.reading_chunk(2, 1)
+                chunk = diary_entry.reading_chunk(2, 1)
+                expect(chunk).to eq 'three'
+            end
+            it 'restarts after reading the whole contents' do 
+                diary_entry = DiaryEntry.new('my_title', 'one two three' )
+                diary_entry.reading_chunk(2, 1)
+                diary_entry.reading_chunk(2, 1)
+                chunk = diary_entry.reading_chunk(2, 1)
+                expect(chunk).to eq 'one two'
+            end
+            it 'restarts if finishes exactly at end' do 
+                diary_entry = DiaryEntry.new('my_title', 'one two three' )
+                diary_entry.reading_chunk(2, 1)
+                diary_entry.reading_chunk(1, 1)
+                chunk = diary_entry.reading_chunk(2, 1)
+                expect(chunk).to eq 'one two'
+            end
+        end
+
+    end
     
 end
